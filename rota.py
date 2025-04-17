@@ -263,7 +263,7 @@ def main(page: ft.Page):
                 View(
                     "/contas",
                     [
-                        AppBar(title=Text("rewsultado"), bgcolor=Colors.PRIMARY_CONTAINER),
+                        AppBar(title=Text("resultado"), bgcolor=Colors.PRIMARY_CONTAINER),
                         Text(theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM, color= ft.Colors.WHITE, value=f"Resultado final:"),
                         ft.Container(
                             margin=20,
