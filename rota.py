@@ -92,7 +92,7 @@ def main(page: ft.Page):
                                     input_tempo,
                                     input_media_salarial,
                                     input_categori,
-                                    ElevatedButton(text="enviar", bgcolor= Colors.BLACK, color= ft.Colors.WHITE, width= 400, on_click=lambda _: page.go("/contas")),
+                                    ElevatedButton(text="enviar", bgcolor= Colors.BLACK, color= ft.Colors.WHITE, width= 400, on_click= conta),
 
                                 ],
 
@@ -112,7 +112,82 @@ def main(page: ft.Page):
                 )
 
             )
-        elif page.route == "/contas":
+
+        elif page.route == "/resultado":
+            page.views.append(
+                View(
+                    "/contas",
+                    [
+                        AppBar(title=Text("resultado"), bgcolor=Colors.PRIMARY_CONTAINER),
+                        Text(theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM, color=ft.Colors.WHITE,
+                             value=f"Resultado final:"),
+                        ft.Container(
+                            margin=20,
+                            padding=10,
+                            alignment=ft.alignment.center,
+                            bgcolor=ft.Colors.WHITE,
+                            width=400,
+                            height=350,
+                            content=ft.Column(
+                                [
+
+                                    txt_resultad,
+                                    salaro_resultad,
+                                    anos_resultad,
+                                    tempo_resultad,
+                                ]
+                            )
+
+                        )
+
+                    ],
+                    horizontal_alignment=CrossAxisAlignment.CENTER,
+                    bgcolor=ft.Colors.BLUE_ACCENT_200,
+                )
+            )
+        page.update()
+
+    def conta(e):
+        try:
+
+            if input_idade.value == '':
+                input_idade.error = True
+                input_idade.error_text = "PREENCHA ESSE CAMPO"
+            else:
+                input_idade.error = False
+                input_idade.error_text = ""
+
+            if input_tempo.value == '':
+                input_tempo.error = True
+                input_tempo.error_text = "PREENCHA ESSE CAMPO"
+            else:
+                input_tempo.error = False
+                input_tempo.error_text = ""
+
+            if input_media_salarial.value == '':
+                input_media_salarial.error = True
+                input_media_salarial.error_text = "PREENCHA ESSE CAMPO"
+            else:
+                input_media_salarial.error = False
+                input_media_salarial.error_text = ""
+
+            if input_categori.value is None:
+                input_categori.error = True
+                input_categori.error_text = "PREENCHA ESSE CAMPO"
+
+            else:
+                input_categori.error = False
+                input_categori.error_text = ""
+
+            if input_gen.value is None:
+                input_gen.error = True
+                input_gen.error_text = "PREENCHA ESSE CAMPO"
+
+            else:
+                input_gen.error = False
+                input_gen.error_text = ""
+
+            page.update()
 
             idade = int(input_idade.value)
             tempo = int(input_tempo.value)
@@ -122,21 +197,6 @@ def main(page: ft.Page):
 
             anos = datetime.now().year
             print(anos)
-
-            if not idade:
-                idade.error = True
-                idade.error_text = "PREENCHA ESSE CAMPO"
-                page.update()
-
-            if not tempo:
-                tempo.error = True
-                tempo.error_text = "PREENCHA ESSE CAMPO"
-                page.update()
-
-            if not media_salarial   :
-                media_salarial.error = True
-                media_salarial.error_text = "PREENCHA ESSE CAMPO"
-                page.update()
 
 
             if input_categori.value == "idade":
@@ -259,37 +319,11 @@ def main(page: ft.Page):
                         final = conta + anos
                         tempo_resultad.value = f"Voce vai atingir o tempo minimo de contribuição  em {final}"
 
-            page.views.append(
-                View(
-                    "/contas",
-                    [
-                        AppBar(title=Text("resultado"), bgcolor=Colors.PRIMARY_CONTAINER),
-                        Text(theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM, color= ft.Colors.WHITE, value=f"Resultado final:"),
-                        ft.Container(
-                            margin=20,
-                            padding=10,
-                            alignment=ft.alignment.center,
-                            bgcolor=ft.Colors.WHITE,
-                            width=400,
-                            height=350,
-                            content=ft.Column(
-                                [
+            page.go("/resultado")
+            page.update()
+        except ValueError:
+            print("Preencha os campos")
 
-                                    txt_resultad,
-                                    salaro_resultad,
-                                    anos_resultad,
-                                    tempo_resultad,
-                                ]
-                            )
-
-                        )
-
-                    ],
-                    horizontal_alignment=CrossAxisAlignment.CENTER,
-                    bgcolor= ft.Colors.BLUE_ACCENT_200,
-                )
-            )
-        page.update()
 
     def voltar(e):
         page.views.pop()
